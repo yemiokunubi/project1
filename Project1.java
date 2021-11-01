@@ -1,5 +1,16 @@
 import java.util.*;
 public class Project1 {
+  public static double[][] createMatrixSizeN(int n){
+    Random r = new Random();
+    double[][] matrix = new double[n][n];
+    for(int i = 0; i<n; i++){
+      for(int j = 0; j<n; j++){
+        double randomValue = -100.0 + (100 -(-100)) * r.nextDouble();
+        matrix[i][j] = randomValue;
+      }
+    }
+    return matrix;
+  }
 	public static double[][] classic(double a[][],double b[][]){
     double[][] result = new double[a.length][a.length];
 
@@ -294,7 +305,9 @@ public class Project1 {
   public static void main(String[] args) {
 		//matrix is fixed in here
     double[][] a = {{5,2,6,1},{0,6,2,0},{3,8,1,4},{1,8,5,6}};
-		double[][] b = {{7,5,8,0},{1,8,2,6},{9,4,3,8},{5,3,7,9}};
+	 	double[][] b = {{7,5,8,0},{1,8,2,6},{9,4,3,8},{5,3,7,9}};
+    double[][] c = createMatrixSizeN(4);
+    double[][] d = createMatrixSizeN(4);
     double startTime;
     double endTime;
     System.out.println("matrix a is\n" + Arrays.deepToString(a).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
@@ -323,5 +336,34 @@ public class Project1 {
     endTime = System.nanoTime();
     System.out.println(Arrays.deepToString(strasRes).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     System.out.println("Strassen method took " + (endTime-startTime)/1000000000 + " seconds");
+    System.out.println("\n \n");
+
+    System.out.println("matrix c is\n" + Arrays.deepToString(c).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("matrix d is\n" + Arrays.deepToString(d).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    double[][] classicRes1 = new double[c.length][c.length];
+    double[][] divRes1 = new double[c.length][c.length];
+    double[][] strasRes1 = new double[c.length][c.length];
+
+    System.out.println("Classic multiplicaton result ");
+    startTime = System.nanoTime();
+    classicRes1 = classic(c,d);
+    endTime = System.nanoTime();
+    System.out.println(Arrays.deepToString(classicRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Classic multiplication took " + (endTime-startTime)/1000000000 + " seconds");
+
+    System.out.println("Naive Divide and Conquer result ");
+    startTime = System.nanoTime();
+    divRes1 = divideCon(c,d);
+    endTime = System.nanoTime();
+    System.out.println(Arrays.deepToString(divRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Naive Divide and Conquer took " + (endTime-startTime)/1000000000 + " seconds");
+
+    System.out.println("Strassen Method ");
+    startTime = System.nanoTime();
+    strasRes1 = strassen(c,d);
+    endTime = System.nanoTime();
+    System.out.println(Arrays.deepToString(strasRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Strassen method took " + (endTime-startTime)/1000000000 + " seconds");
+
   }
 }
