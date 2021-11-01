@@ -36,6 +36,7 @@ public class Project1 {
   //addition for divide and conquer
   public static double[][] addition(double a[][],double b[][]){
 
+
     double[][] combined = new double[a.length][a.length];
     for(int i=0; i < a.length; i++){
       for(int j=0; j < a.length; j++){
@@ -306,15 +307,18 @@ public class Project1 {
 		//matrix is fixed in here
     double[][] a = {{5,2,6,1},{0,6,2,0},{3,8,1,4},{1,8,5,6}};
 	 	double[][] b = {{7,5,8,0},{1,8,2,6},{9,4,3,8},{5,3,7,9}};
-    double[][] c = createMatrixSizeN(4);
-    double[][] d = createMatrixSizeN(4);
+    double[][] c = createMatrixSizeN(128);
+    double[][] d = createMatrixSizeN(128);
     double startTime;
     double endTime;
+    double timeTook;
     System.out.println("matrix a is\n" + Arrays.deepToString(a).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     System.out.println("matrix b is\n" + Arrays.deepToString(b).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     double[][] classicRes = new double[a.length][a.length];
     double[][] divRes = new double[a.length][a.length];
     double[][] strasRes = new double[a.length][a.length];
+
+    System.out.println("sanity check : ");
 
     System.out.println("Classic multiplicaton result ");
     startTime = System.nanoTime();
@@ -336,34 +340,47 @@ public class Project1 {
     endTime = System.nanoTime();
     System.out.println(Arrays.deepToString(strasRes).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     System.out.println("Strassen method took " + (endTime-startTime)/1000000000 + " seconds");
+    
     System.out.println("\n \n");
+    
 
-    System.out.println("matrix c is\n" + Arrays.deepToString(c).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-    System.out.println("matrix d is\n" + Arrays.deepToString(d).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    // System.out.println("matrix c is\n" + Arrays.deepToString(c).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    // System.out.println("matrix d is\n" + Arrays.deepToString(d).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     double[][] classicRes1 = new double[c.length][c.length];
     double[][] divRes1 = new double[c.length][c.length];
     double[][] strasRes1 = new double[c.length][c.length];
 
-    System.out.println("Classic multiplicaton result ");
+    
+    // System.out.println("Classic multiplicaton result ");
     startTime = System.nanoTime();
-    classicRes1 = classic(c,d);
+    for(int i = 0; i < 10; i++){
+      classicRes1 = classic(c,d);
+    }
     endTime = System.nanoTime();
-    System.out.println(Arrays.deepToString(classicRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-    System.out.println("Classic multiplication took " + (endTime-startTime)/1000000000 + " seconds");
+    timeTook = (endTime-startTime)/1000000000;
+    // System.out.println(Arrays.deepToString(classicRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Classic multiplication took " + timeTook/10 + " seconds for 10 interations of size " + c.length);
 
-    System.out.println("Naive Divide and Conquer result ");
+    // System.out.println("Naive Divide and Conquer result ");
     startTime = System.nanoTime();
-    divRes1 = divideCon(c,d);
+    for(int i = 0; i < 10; i++){
+      divRes1 = divideCon(c,d);
+    }
     endTime = System.nanoTime();
-    System.out.println(Arrays.deepToString(divRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-    System.out.println("Naive Divide and Conquer took " + (endTime-startTime)/1000000000 + " seconds");
+    timeTook = (endTime-startTime)/1000000000;
+    // System.out.println(Arrays.deepToString(classicRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Naive Divide and Conquer took " + timeTook/10 + " seconds for 10 interations of size " + c.length);
 
-    System.out.println("Strassen Method ");
+    // System.out.println("Strassen Method ");
     startTime = System.nanoTime();
-    strasRes1 = strassen(c,d);
+    for(int i = 0; i < 10; i++){
+      strasRes1 = strassen(c,d);
+    }
     endTime = System.nanoTime();
-    System.out.println(Arrays.deepToString(strasRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-    System.out.println("Strassen method took " + (endTime-startTime)/1000000000 + " seconds");
+    timeTook = (endTime-startTime)/1000000000;
+    // System.out.println(Arrays.deepToString(classicRes1).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+    System.out.println("Strassen Method took " + timeTook/10 + " seconds for 10 interations of size " + c.length);
+
 
   }
 }
